@@ -30,6 +30,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4zm-7 4h14v-2H5v2z" fill="currentColor"/></svg>
         <span class="nav-btn-template-text">Excel Template</span>
       </button>
+      <button class="nav-btn nav-btn-help" onclick="openHelpModal()" title="How to use InvoiceGen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 17v-1M12 13c0-2 3-2 3-4a3 3 0 10-6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Help
+      </button>
     </nav>
   </header>
 
@@ -451,6 +455,95 @@
 
         <!-- Preview list (shown after file parse) -->
         <div id="import-preview"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HELP MODAL ==================== -->
+  <div id="help-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+    <div class="modal-box help-modal-box">
+      <div class="modal-header">
+        <h2 id="help-modal-title">How to Use InvoiceGen</h2>
+        <button class="modal-close" onclick="closeHelpModal()" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="help-steps">
+
+          <div class="help-step">
+            <div class="help-step-num">1</div>
+            <div class="help-step-body">
+              <div class="help-step-title">Set Up Your Seller Profile</div>
+              <div class="help-step-desc">Fill in your <strong>Business / Seller Details</strong> (company name, GSTIN, address, bank details, logo). Click <strong>Save Profile</strong> to store it permanently. On your next invoice, click <strong>Load Profile</strong> to auto-fill all seller fields instantly — no re-typing.</div>
+              <div class="help-step-tip">You can also import your profile from an Excel file using the <em>Import Profile</em> button. Recommended logo size: <strong>220 × 140 px</strong> PNG/SVG with a transparent background.</div>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">2</div>
+            <div class="help-step-body">
+              <div class="help-step-title">Fill in Buyer Details</div>
+              <div class="help-step-desc">Enter the buyer's name, GSTIN, billing address, and <strong>Place of Supply (POS)</strong> state. The app compares your seller state with the POS to determine whether <strong>CGST + SGST</strong> (intrastate) or <strong>IGST</strong> (interstate) applies.</div>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">3</div>
+            <div class="help-step-body">
+              <div class="help-step-title">Add Line Items with Tax Bifurcation</div>
+              <div class="help-step-desc">Click <strong>+ Add Row</strong> to add items. Each row has three separate tax columns — <strong>CGST%</strong>, <strong>SGST%</strong>, and <strong>IGST%</strong>.</div>
+              <ul class="help-list">
+                <li><strong>Intrastate sale:</strong> Enter a CGST% — SGST is auto-mirrored and IGST is locked.</li>
+                <li><strong>Interstate sale:</strong> Enter an IGST% — CGST and SGST are locked automatically.</li>
+                <li>If you change the seller or buyer state, all rows convert between CGST+SGST ↔ IGST automatically.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">4</div>
+            <div class="help-step-body">
+              <div class="help-step-title">Preview &amp; Download PDF</div>
+              <div class="help-step-desc">Click <strong>Preview Invoice</strong> to see the final A4 layout — totals, tax breakdown (CGST/SGST or IGST), bank details, and signatory block. Click <strong>Download PDF</strong> to save. The invoice is optimised to fit on a single A4 page.</div>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">5</div>
+            <div class="help-step-body">
+              <div class="help-step-title">Save &amp; Manage Invoices</div>
+              <div class="help-step-desc">Every invoice you generate is saved automatically. Open the <strong>Saved Invoices</strong> tab to view all past invoices. You can <strong>load any invoice</strong> back into the form for editing or <strong>re-download</strong> it as a PDF at any time.</div>
+            </div>
+          </div>
+
+          <div class="help-step">
+            <div class="help-step-num">6</div>
+            <div class="help-step-body">
+              <div class="help-step-title">Bulk Import from Excel</div>
+              <div class="help-step-desc">Have multiple invoices? Click <strong>Import from Excel</strong>, download the <strong>Excel Template</strong>, fill your data (one row = one line item), and upload the file. The app groups rows by Invoice No. and shows each as a card.</div>
+              <ul class="help-list">
+                <li>Click <strong>Load</strong> on a card to populate the form with that invoice.</li>
+                <li>The import queue <strong>persists across sessions</strong> — you don't need to re-upload after closing the app.</li>
+                <li>Use the <strong>Clear List</strong> button inside the Import modal to reset the queue when done.</li>
+                <li>Use <strong>CGST%</strong>, <strong>SGST%</strong>, <strong>IGST%</strong> columns in your Excel file (the old single <em>GST Rate%</em> column is also supported as a fallback).</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="help-ref-box">
+          <div class="help-ref-title">Quick Reference</div>
+          <div class="help-ref-grid">
+            <div class="help-ref-item"><span class="help-ref-key">Save Profile</span><span>Stores seller details permanently in browser</span></div>
+            <div class="help-ref-item"><span class="help-ref-key">Load Profile</span><span>Auto-fills all seller fields</span></div>
+            <div class="help-ref-item"><span class="help-ref-key">Excel Template</span><span>Available in header nav &amp; Import modal</span></div>
+            <div class="help-ref-item"><span class="help-ref-key">Logo size</span><span>220 × 140 px PNG/SVG recommended</span></div>
+            <div class="help-ref-item"><span class="help-ref-key">Tax logic</span><span>CGST mirrors SGST · IGST is exclusive</span></div>
+            <div class="help-ref-item"><span class="help-ref-key">All data stored locally</span><span>No server · works fully offline</span></div>
+          </div>
+        </div>
 
       </div>
     </div>

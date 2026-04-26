@@ -1439,6 +1439,15 @@ function clearImportQueue() {
 }
 
 // ── Open / Close modal ────────────────────────────────────────
+function openHelpModal() {
+  document.getElementById('help-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeHelpModal() {
+  document.getElementById('help-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function openImportModal() {
   document.getElementById('import-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1455,6 +1464,10 @@ function closeImportModal() {
 
 // Close on overlay click (outside the modal box)
 document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('help-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('help-modal')) closeHelpModal();
+  });
+
   const overlay = document.getElementById('import-modal');
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeImportModal();
